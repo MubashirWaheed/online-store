@@ -1,6 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import Hero from './components/Hero';
-import Navbar from './components/Navbar';
+import Home from './pages/home';
+import Shop from './pages/shop'
+
+import Navbar from './components/Navbar'
+import Dropdown from './components/Dropdown';
 import { 
   BrowserRouter,
   Routes,
@@ -8,14 +12,31 @@ import {
 } from 'react-router-dom';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
+
+    useEffect(()=>{
+
+      const hideMenu = ()=>{
+        if(window.innerWidth > 768) setIsOpen(false);
+      }
+      
+      window.addEventListener("resize",hideMenu);
+    
+      return ()=>{
+        window.removeEventListener("resize", hideMenu)
+      }
+    })
+  
   return (
     <div className="App h-screen ">
       <BrowserRouter>
-      <Navbar/>
-      <Routes>
-        <Route  path="/" element={<Hero/>}/>
-        {/* <Hero /> */}
-      </Routes>
+        <Navbar toggle={toggle} />
+        <Dropdown isOpen={isOpen} toggle={toggle} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route  path="shop" element={<Shop />}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );
