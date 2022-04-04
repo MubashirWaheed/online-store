@@ -1,7 +1,10 @@
-import React from "react";
+import React , { useContext } from "react";
 import { Link } from "react-router-dom";
+import { boughtContext } from "../context/boughtContext";
 
-const Navbar = ({toggle})=>{
+const Navbar = ({toggleMenu})=>{
+    const { toggle, numberOfItems } = useContext(boughtContext);
+
     return (
         <nav className="px-4 sm:px-8 py-4 md:px-12 lg:px-20 flex justify-between items-center">
             <div className="flex items-center">
@@ -13,7 +16,7 @@ const Navbar = ({toggle})=>{
                 <h2 className="pl-3 font-semibold text-xl">STORE</h2>
             </div>
                 {/* Hamburger  */}
-            <div className="md:hidden cursor-pointer" onClick={toggle}>
+            <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -24,11 +27,18 @@ const Navbar = ({toggle})=>{
                     <Link to="shop" className="font-semibold text-zinc-600">SHOP</Link>
                     <Link to="contact" className="font-semibold text-zinc-600" >CONTACT</Link>
                 </div>
-                <svg className="md:block hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+                <div className="relative" onClick={toggle}>
+                    {/* {cart logo} */}
+                    <svg
+                        className=" md:block hidden h-6 w-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span className=" px-1 w-6 rounded-full absolute text-white -right-5 -top-4 bg-red-500 font-bold  cursor-pointer">{numberOfItems > 0 ? numberOfItems : null  }</span>
+                </div>
+                
             </div>
         </nav>
     )
 }
+
 export default Navbar

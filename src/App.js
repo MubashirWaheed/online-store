@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Bought from './context/boughtContext';
 import './App.css';
 import Home from './pages/home';
 import Shop from './pages/shop'
+
 
 import Navbar from './components/Navbar'
 import Dropdown from './components/Dropdown';
@@ -29,14 +31,16 @@ function App() {
     })
   
   return (
-    <div className="App h-screen ">
+    <div className="App h-screen relative ">
       <BrowserRouter>
-        <Navbar toggle={toggle} />
-        <Dropdown isOpen={isOpen} toggle={toggle} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route  path="shop" element={<Shop />}/>
-        </Routes>
+        <Bought>
+            <Navbar toggleMenu={toggle} />
+            <Dropdown isOpen={isOpen} toggle={toggle} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route  path="shop" element={<Shop />}/>
+            </Routes>
+          </Bought>
       </BrowserRouter>
     </div>
   );
