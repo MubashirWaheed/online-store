@@ -1,6 +1,7 @@
 import React , { useContext } from "react";
 import { Link } from "react-router-dom";
 import { boughtContext } from "../context/boughtContext";
+import PropTypes from "prop-types";
 
 const Navbar = ({toggleMenu})=>{
     const { toggle, numberOfItems } = useContext(boughtContext);
@@ -25,7 +26,23 @@ const Navbar = ({toggleMenu})=>{
                 <div className=" md:space-x-14 font-semibold ">
                     <Link to="/" className="font-semibold text-zinc-600">HOME</Link>
                     <Link to="shop" className="font-semibold text-zinc-600">SHOP</Link>
-                    <Link to="contact" className="font-semibold text-zinc-600" >CONTACT</Link>
+                    <div className="dropdown inline relative">
+                        <span className="relative cursor-pointer text-zinc-600">CATEGORIES</span>
+                        <div className=" dropdown-menu absolute hidden top-5 right-0 left-0 z-20 justify-between ">
+                            <ul className=" text-gray-700 pt-2   ">
+                                <li className="bg-white "><a className="px-4" href="#">Item</a></li>
+                                <li className="bg-white"><a  className="px-4" href="#">Item</a></li>
+                                <li className="bg-white"><a className="px-4" href="#">Item</a></li>
+                            </ul>
+                            <ul className="  text-gray-700 pt-2  ">
+                                <li className="bg-white "><a href="#">Item</a></li>
+                                <li className="bg-white"><a href="#">Item</a></li>
+                                <li className="bg-white"><a href="#">Item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* <Link to="contact" className="font-semibold text-zinc-600" >CATEGORIES</Link> */}
                 </div>
                 <div className="relative" onClick={toggle}>
                     {/* {cart logo} */}
@@ -39,6 +56,10 @@ const Navbar = ({toggleMenu})=>{
             </div>
         </nav>
     )
+}
+
+Navbar.propTypes = {
+    toggleMenu: PropTypes.func.isRequired
 }
 
 export default Navbar

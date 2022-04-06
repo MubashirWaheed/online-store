@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 const Dropdown = ({isOpen, toggle}) => {
@@ -11,6 +12,11 @@ const Dropdown = ({isOpen, toggle}) => {
         <Link to="contact" className="p-4 font-medium" >Contact</Link>
     </div>
   )
+}
+
+Dropdown.propTypes = {
+  isOpen : PropTypes.bool.isRequired,
+  toggle : PropTypes.func.isRequired 
 }
 
 export default Dropdown

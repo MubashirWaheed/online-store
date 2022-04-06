@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Bought from './context/boughtContext';
+import React, { useState, useEffect , useContext} from 'react';
 import './App.css';
 import Home from './pages/home';
 import Shop from './pages/shop'
-
+import Sidebar from './components/Sidebar';
 
 import Navbar from './components/Navbar'
 import Dropdown from './components/Dropdown';
@@ -12,10 +11,13 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
+import { boughtContext } from './context/boughtContext';
 
 function App() {
+  const {toggle, toggleSidebar} = useContext(boughtContext)
+  
   const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
+  const toggleNav = () => setIsOpen(!isOpen);
 
     useEffect(()=>{
 
@@ -33,14 +35,15 @@ function App() {
   return (
     <div className="App h-screen relative ">
       <BrowserRouter>
-        <Bought>
-            <Navbar toggleMenu={toggle} />
-            <Dropdown isOpen={isOpen} toggle={toggle} />
+        {/* <Bought> */}
+            <Navbar toggleMenu={toggleNav} />
+            <Dropdown isOpen={isOpen} toggle={toggleNav} />
+            <Sidebar toggleSidebar={toggleSidebar} toggle={toggle} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route  path="shop" element={<Shop />}/>
             </Routes>
-          </Bought>
+          {/* </Bought> */}
       </BrowserRouter>
     </div>
   );

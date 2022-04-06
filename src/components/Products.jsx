@@ -7,15 +7,6 @@ const Products = ({toggle}) => {
 
   
 
-  const getItems = async ()=>{
-    try{
-      const response = await fetch("https://fakestoreapi.com/products/category/men's%20clothing");
-      const products = await response.json();
-      setProducts([...products]);
-    }catch(error){
-      console.log(error)
-    }
-  }
   const incrementProductCount = ()=>{
     setNumberOfItems( numberOfItems + 1 )
   }
@@ -43,8 +34,20 @@ const Products = ({toggle}) => {
   }
   
   useEffect(()=>{
-    getItems();
+    let mounted = true;
+    (async ()=>{
+      try{
+        const response = await fetch("https://fakestoreapi.com/products/category/men's%20clothing");
+        const products = await response.json();
+        if(mounted){
+          setProducts([...products]);
+        }
+      }catch(error){
+        console.log(error)
+      }
+    })();
 
+    return ()=> mounted = false;
   },[])
 
   return (
